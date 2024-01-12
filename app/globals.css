@@ -16,5 +16,5 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  transition: all 0.2s ease-in-out;
+  transition: all 0.2s linear;
 }

@@ -5,9 +5,7 @@ import {
   PropsWithChildren,
   createContext,
   useEffect,
-  useLayoutEffect,
   useMemo,
-  useRef,
   useState,
 } from 'react';
 
@@ -44,7 +42,7 @@ export default function ThemeProvider({ children }: PropsWithChildren) {
       <Theme
         appearance={theme}
         accentColor="teal"
-        grayColor="olive"
+        grayColor="sage"
         radius="full"
       >
         {children}

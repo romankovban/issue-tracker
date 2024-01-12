@@ -7,23 +7,15 @@ import React from 'react';
 import { AiFillBug } from 'react-icons/ai';
 import clsx from 'clsx';
 // import { useSession } from 'next-auth/react';
-import {
-  Avatar,
-  Box,
-  Container,
-  DropdownMenu,
-  Flex,
-  Switch,
-  Text,
-} from '@radix-ui/themes';
+import { Avatar, Box, Container, DropdownMenu, Flex } from '@radix-ui/themes';
 import { useTheme } from '@/app/hooks/use-theme';
 import { ThemeSwitch } from '@/app/components/theme-switch.component';
 
 export const NavBar = () => {
-  const { theme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
 
   return (
-    <nav className="border-b mb-5 px-5 py-4">
+    <nav className="mb-5 px-5 py-4 bg-slate-200 shadow-lg dark:bg-[#1B1B1D]">
       <Container>
         <Flex justify="between">
           <Flex align="center" gap="8">
@@ -37,7 +29,7 @@ export const NavBar = () => {
             <NavLinks theme={theme} />
           </Flex>
           <Flex align="center" gap="9">
-            <ThemeSwitch />
+            <ThemeSwitch theme={theme} toggleTheme={toggleTheme} />
             <AuthStatus />
           </Flex>
         </Flex>
@@ -60,9 +52,10 @@ const NavLinks = ({ theme }: { theme: string }) => {
         <li key={link.href}>
           <Link
             className={clsx('text-lg font-semibold text transition-colors', {
-              'dark:text-zinc-400 underline': link.href === currentPath,
+              'text-zinc-700 hover:text-zinc-500': theme === 'light',
               'text-zinc-100 hover:text-zinc-400': theme === 'dark',
-              'text-zinc-600 hover:text-zinc-400': theme === 'light',
+              '!text-zinc-400 dark:text-zinc-400 underline':
+                link.href === currentPath,
             })}
             href={link.href}
           >

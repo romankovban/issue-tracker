@@ -3,7 +3,7 @@ import './theme-config.css';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { Container, Theme, ThemePanel } from '@radix-ui/themes';
+import { Container } from '@radix-ui/themes';
 import ThemeProvider from '@/app/providers/theme-provider';
 import { NavBar } from '@/app/components/navbar.component';
 
@@ -23,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.variable}>
         <ThemeProvider>
           <NavBar />
