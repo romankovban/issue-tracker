@@ -1,6 +1,6 @@
 'use client';
 
-// import { Skeleton } from '@/app/components';
+import { Skeleton } from '@/app/components';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
@@ -15,7 +15,7 @@ export const NavBar = () => {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <nav className="mb-5 px-5 py-4 bg-slate-200 shadow-lg dark:bg-[#1B1B1D]">
+    <nav className="mb-5 px-5 py-4 bg-slate-200 shadow-lg dark:bg-neutral-800">
       <Container>
         <Flex justify="between">
           <Flex align="center" gap="8">
@@ -43,7 +43,7 @@ const NavLinks = ({ theme }: { theme: string }) => {
 
   const links = [
     { label: 'Dashboard', href: '/' },
-    { label: 'Issues', href: '/issues' },
+    { label: 'Issues', href: '/issues/list' },
   ];
 
   return (
