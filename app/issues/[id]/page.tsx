@@ -1,4 +1,5 @@
 import { prisma } from '@/app/core/prisma';
+import { EditIssueButton } from '@/app/issues/[id]/_components/edit-issue-button.component';
 import { IssueDetails } from '@/app/issues/[id]/_components/issue-details.component';
 import { Box, Grid } from '@radix-ui/themes';
 import { notFound } from 'next/navigation';
@@ -24,6 +25,7 @@ export default async function IssueDetailPage({ params }: IssueDetailsProps) {
       <Box className="md:col-span-4">
         <IssueDetails issue={issue} />
       </Box>
+      <EditIssueButton issueId={issue.id} />
     </Grid>
   );
 }

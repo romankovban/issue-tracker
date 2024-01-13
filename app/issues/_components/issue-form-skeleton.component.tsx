@@ -14,7 +14,7 @@ const IssueFormSkeleton = () => {
   });
 
   return (
-    <Box className="max-w-4xl space-y-2">
+    <Box className="max-w-3xl space-y-2">
       <Skeleton height="2.5rem" />
       <Skeleton className={textareaClasses} height="22rem" />
     </Box>

@@ -1,14 +1,13 @@
 'use client';
 
 import SimpleMDE from 'react-simplemde-editor';
-import type { SimpleMdeToCodemirrorEvents } from 'react-simplemde-editor';
 import 'easymde/dist/easymde.min.css';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Issue } from '@prisma/client';
 import { Button, Callout, TextField } from '@radix-ui/themes';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { CreateIssueDto, createIssueDto } from '@/app/api/issues/dto';
 import { ErrorMessage, Spinner } from '@/app/components';
@@ -33,7 +32,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
     try {
       setSubmitting(true);
       if (issue) {
-        await axios.patch('/api/issues/' + issue.id, data);
+        await axios.patch(`/api/issues/${issue.id}`, data);
       } else {
         await axios.post('/api/issues', data);
       }
@@ -62,7 +61,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
   });
 
   return (
-    <div className="max-w-4xl">
+    <div className="max-w-3xl">
       {error && (
         <Callout.Root color="red" className="mb-5">
           <Callout.Text>{error}</Callout.Text>
