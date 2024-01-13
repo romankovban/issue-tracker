@@ -6,10 +6,17 @@ import { usePathname } from 'next/navigation';
 import React from 'react';
 import { AiFillBug } from 'react-icons/ai';
 import clsx from 'clsx';
-// import { useSession } from 'next-auth/react';
-import { Avatar, Box, Container, DropdownMenu, Flex } from '@radix-ui/themes';
+import {
+  Avatar,
+  Box,
+  Container,
+  DropdownMenu,
+  Flex,
+  Text,
+} from '@radix-ui/themes';
 import { useTheme } from '@/app/hooks/use-theme';
 import { ThemeSwitch } from '@/app/components/theme-switch.component';
+import { useSession } from 'next-auth/react';
 
 export const NavBar = () => {
   const { theme, toggleTheme } = useTheme();
@@ -68,23 +75,24 @@ const NavLinks = ({ theme }: { theme: string }) => {
 };
 
 const AuthStatus = () => {
-  // const { status, data: session } = useSession();
+  const { status, data: session } = useSession();
 
-  // if (status === 'loading') return <Skeleton width="3rem" />;
+  if (status === 'loading')
+    return <Skeleton borderRadius={100} width="2rem" height="2rem" />;
 
-  // if (status === 'unauthenticated')
-  //   return (
-  //     <Link className="nav-link" href="/api/auth/signin">
-  //       Login
-  //     </Link>
-  //   );
+  if (status === 'unauthenticated')
+    return (
+      <Link className="nav-link" href="/api/auth/signin">
+        Login
+      </Link>
+    );
 
   return (
     <Box>
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
           <Avatar
-            // src={session!.user!.image!}
+            src={session!.user!.image!}
             fallback="?"
             size="2"
             radius="full"
@@ -94,7 +102,7 @@ const AuthStatus = () => {
         </DropdownMenu.Trigger>
         <DropdownMenu.Content>
           <DropdownMenu.Label>
-            {/* <Text size="2">{session!.user!.email}</Text> */}
+            <Text size="2">{session!.user!.email}</Text>
           </DropdownMenu.Label>
           <DropdownMenu.Item>
             <Link href="/api/auth/signout">Log out</Link>

@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/app/core/prisma';
 import { createIssueDto } from './dto';
+import { getServerSession } from 'next-auth';
+import authOptions from '@/app/core/auth-options';
 
 export async function GET(req: Request) {
   const issues = await prisma.issue.findMany();
@@ -9,6 +11,11 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return NextResponse.json({}, { status: 401 });
+  }
+
   const bodyRaw = await req.json();
   const validateBody = createIssueDto.safeParse(bodyRaw);
 
