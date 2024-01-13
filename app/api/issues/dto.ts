@@ -14,6 +14,7 @@ export const updateIssueDto = z.object({
     .min(1, 'Description is required.')
     .max(65535)
     .optional(),
+  status: z.enum(['OPEN', 'IN_PROGRESS', 'CLOSED']).default('OPEN'),
   assignedToUserId: z
     .string()
     .min(1, 'AssignedToUserId is required.')

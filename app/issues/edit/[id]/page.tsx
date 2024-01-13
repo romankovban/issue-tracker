@@ -1,5 +1,7 @@
 import { prisma } from '@/app/core/prisma';
+import IssueStatusSelect from '@/app/issues/[id]/_components/issue-status-select.component';
 import IssueFormSkeleton from '@/app/issues/_components/issue-form-skeleton.component';
+import { Box, Grid } from '@radix-ui/themes';
 import dynamic from 'next/dynamic';
 import { notFound } from 'next/navigation';
 
@@ -28,5 +30,9 @@ export default async function IssueDetailsPage({ params }: IssueDetailsProps) {
     notFound();
   }
 
-  return <IssueForm issue={issue} />;
+  return (
+    <Box className="w-full">
+      <IssueForm issue={issue} />
+    </Box>
+  );
 }

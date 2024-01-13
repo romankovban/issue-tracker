@@ -4,7 +4,7 @@ import SimpleMDE from 'react-simplemde-editor';
 import 'easymde/dist/easymde.min.css';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Issue } from '@prisma/client';
-import { Button, Callout, TextField } from '@radix-ui/themes';
+import { Box, Button, Callout, Flex, Grid, TextField } from '@radix-ui/themes';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -13,6 +13,7 @@ import { CreateIssueDto, createIssueDto } from '@/app/api/issues/dto';
 import { ErrorMessage, Spinner } from '@/app/components';
 import { useTheme } from '@/app/hooks/use-theme';
 import clsx from 'clsx';
+import IssueStatusSelect from '@/app/issues/[id]/_components/issue-status-select.component';
 
 const IssueForm = ({ issue }: { issue?: Issue }) => {
   const router = useRouter();
@@ -62,13 +63,13 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
   });
 
   return (
-    <div className="max-w-3xl">
+    <Flex className="flex-col md:flex-row" gap="4" justify="between">
       {error && (
         <Callout.Root color="red" className="mb-5">
           <Callout.Text>{error}</Callout.Text>
         </Callout.Root>
       )}
-      <form className="space-y-3" onSubmit={onSubmit}>
+      <form className="w-full space-y-3" onSubmit={onSubmit}>
         <TextField.Root>
           <TextField.Input
             className={inputClasses}
@@ -78,6 +79,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
           />
         </TextField.Root>
         <ErrorMessage>{errors.title?.message}</ErrorMessage>
+
         <Controller
           name="description"
           control={control}
@@ -91,6 +93,11 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
           )}
         />
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
+        {issue ? (
+          <Box className="block md:hidden">
+            <IssueStatusSelect issue={issue} />
+          </Box>
+        ) : null}
         <Button
           className="!cursor-pointer w-full sm:w-auto"
           size="3"
@@ -100,7 +107,12 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
           {isSubmitting && <Spinner />}
         </Button>
       </form>
-    </div>
+      {issue ? (
+        <Box className="hidden md:block">
+          <IssueStatusSelect issue={issue} />
+        </Box>
+      ) : null}
+    </Flex>
   );
 };
 
