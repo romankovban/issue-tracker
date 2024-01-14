@@ -1,5 +1,6 @@
-import { IssuesList } from '@/app/components/issue-list.component';
+import { IssueChart, IssueSummary, LatestIssues } from '@/app/components';
 import { prisma } from '@/app/core/prisma';
+import { Flex, Grid } from '@radix-ui/themes';
 import { Metadata } from 'next';
 
 export default async function Home() {
@@ -13,7 +14,15 @@ export default async function Home() {
     where: { status: 'CLOSED' },
   });
 
-  return <div>Dashboard</div>;
+  return (
+    <Grid columns={{ initial: '1', md: '2' }} gap="5">
+      <Flex direction="column" gap="5">
+        <IssueSummary open={open} inProgress={inProgress} closed={closed} />
+        <IssueChart open={open} inProgress={inProgress} closed={closed} />
+      </Flex>
+      <LatestIssues />
+    </Grid>
+  );
 }
 
 export const dynamic = 'force-dynamic';
